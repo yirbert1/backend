@@ -1,8 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const Cliente = require('./models/cliente');
+const Cliente = require('./models/cliente.js'); // Asegúrate de que la ruta esté bien
 
-// 🔄 GET /api/cliente – Obtener todos los clientes
 router.get('/', async (req, res) => {
   try {
     const clientes = await Cliente.findAll();
@@ -13,12 +12,10 @@ router.get('/', async (req, res) => {
   }
 });
 
-// 🆕 POST /api/cliente – Registrar un nuevo cliente
 router.post('/', async (req, res) => {
   try {
-    console.log('📦 Datos recibidos:', req.body); // <- Esto imprime lo que llega
-    const { nombre, telefono, correo, direccion } = req.body;
-    const nuevoCliente = await Cliente.create({ nombre, telefono, correo, direccion });
+    const { nombre, apellido } = req.body;
+    const nuevoCliente = await Cliente.create({ nombre, apellido });
     res.json(nuevoCliente);
   } catch (err) {
     console.error('❌ Error al registrar cliente:', err);
